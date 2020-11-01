@@ -12,13 +12,14 @@ function [A, P] = plu(A, n)
   L = eye(n);
   
   for k = 1:(n - 1)
-    %partial pivoting:
-    % Find index p such that
-    % |apk| ≥ |aik| for k ≤ i ≤ n
-    %if (p != k) then
-    %interchange rows k and p
-    %endifq
-    pivot = max(abs(A(n,:)));
+
+    %partial pivoting    
+    [~,pivot_idx] = max(abs(A(k:n,k)));
+    
+    if(pivot_idx != k)
+      A = swap_rows(A, pivot_idx, k);
+      P = swap_rows(P, pivot_idx, k);
+    endif
     
     if (A(k,k) == 0)
       continue;
@@ -34,11 +35,11 @@ function [A, P] = plu(A, n)
       endfor
     endfor
   endfor
-  
+
   for i=2:n
     for j=1:i-1
       A(i,j) = L(i,j);  
     endfor
   endfor
-  
+
 endfunction

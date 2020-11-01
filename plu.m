@@ -1,4 +1,4 @@
-function [A, L] = plu(A, n)
+function [A, P] = plu(A, n)
   validateattributes(A, {"numeric"}, {'square'});
   validateattributes(n, {"numeric"}, {'square'});
   [am, an] = size(A);
@@ -7,9 +7,9 @@ function [A, L] = plu(A, n)
     error("Matrix size is not the same as n!");
   endif
   
-  class(A)  
+  
+  P = eye(n);
   L = eye(n);
-  class(L)
   
   for k = 1:(n - 1)
     %partial pivoting:
@@ -18,13 +18,14 @@ function [A, L] = plu(A, n)
     %if (p != k) then
     %interchange rows k and p
     %endifq
+    pivot = max(abs(A(n,:)));
     
     if (A(k,k) == 0)
       continue;
     endif
     
     for i=(k + 1):n
-       L(i,k) = double(A(i,k))/double(A(k,k));
+      L(i,k) = double(A(i,k))/double(A(k,k));
     endfor
     
     for j = (k + 1):n 
@@ -36,7 +37,8 @@ function [A, L] = plu(A, n)
   
   for i=2:n
     for j=1:i-1
-      A(i,j) = 0;  
+      A(i,j) = L(i,j);  
     endfor
   endfor
+  
 endfunction

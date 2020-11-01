@@ -1,18 +1,15 @@
-Input = [3.0,1.0,4.0;5.0,5.0,1.0;1.0,4.0,5.0]
-Y = [0, 1; 1, 1];
+n=4;
 
+Input = rand(n)
 
-[corrL, corrU, P] = lu(Input);
+[corrL, corrU, P] = lu(Input)
 
+[myU, myL] = my_lu(Input, n);
 
-[myU, myL] = my_lu(Input, 3);
-
-[pA, pP] = plu(Input, 3);
+[pA, pP] = plu(Input, n);
 
 [pL, pU] = get_lu(pA);
 
-actual = pP * pL * pU
-
-isequal(actual, Input)
+result = pP * pL * pU
 
 

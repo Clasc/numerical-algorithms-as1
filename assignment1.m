@@ -1,14 +1,29 @@
-n = 10;
-A = rand(n);
+n_s = 5:5:100;
+iterations = length(n_s);
+R = zeros(iterations, 1);
 
-[np_L,np_U] = my_lu(A, n);
-[Res, P] = plu(A, n);
-[L, U] = get_lu(Res);
+for i = 1:iterations
+  n = n_s(i);
+  A = rand(n);
 
-result_no_pivot = np_L * np_U
-result_pivot = P.' * L * U
+  [Res, P] = plu(A, n);
+  [_L,_U] = lu(A);
+  [L, U] = get_lu(Res);
 
-R_pivoting = accuracy(result_pivot, A) 
-R_np_pivoting = accuracy(result_no_pivot, A) 
+  optimal_result =  _L * _U;
+  result_pivot = P.' * L * U;
+  
+  Ro(i) = accuracy(optimal_result,A);
+  R(i) = accuracy(result_pivot, A);
+endfor
+
+figure
+semilogy(n_s, R, n_s, Ro);
+title("relative Residual");
+xlabel("matrix size n");
+ylabel("residual R");
+grid("on");
+legend('my Residual',"octave's Residual (optimal)",'Location','northwest')
+
 
 

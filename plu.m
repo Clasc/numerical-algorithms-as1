@@ -15,7 +15,7 @@ function [A, P] = plu(A, n)
     
     %partial pivoting    
     [~,pivot_idx] = max(abs(A(k:n,k)));
-    pivot_idx += n-(n-k+1);
+    pivot_idx += k-1;
     
     if(pivot_idx != k)    
       A = swap_rows(A, pivot_idx, k);

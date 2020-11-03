@@ -1,0 +1,2 @@
+function [x] = solveL(B, b, n)  validateattributes(B, {"numeric"}, {'square'});  validateattributes(n, {"numeric"}, {'square'});  validateattributes(b, {"numeric"}, {'column'});    [bm, bn] = size(B);  if (bm != n || bn != n)    error("Matrix size is not the same as n!");  endif  if(length(b) != n)    error("Vector size is not the same as n!");      endif    B = tril(B) - eye(n);    
+endfunction

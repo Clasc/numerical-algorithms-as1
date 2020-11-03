@@ -1,15 +1,13 @@
-n=4;
+n=5;
+Input = rand(n);
 
-Input = rand(n)
+[np_L,np_U] = my_lu(Input, n);
+[Res, P] = plu(Input, n);
+[L, U] = get_lu(Res);
 
-[corrL, corrU, P] = lu(Input)
+result_no_pivot = np_L * np_U
+result_pivot = P.' * L * U
+Input
 
-[myU, myL] = my_lu(Input, n);
-
-[pA, pP] = plu(Input, n);
-
-[pL, pU] = get_lu(pA);
-
-result = pP * pL * pU
 
 

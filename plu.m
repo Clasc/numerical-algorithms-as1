@@ -11,29 +11,29 @@ function [A, P] = plu(A, n)
   P = eye(n);
   L = eye(n);
   
-  for k = 1:(n - 1)
+  for k = 1:n
 
     %partial pivoting    
     [~,pivot_idx] = max(abs(A(k:n,k)));
-    
-    if(pivot_idx != k)
-      A = swap_rows(A, pivot_idx, k);
-      P = swap_rows(P, pivot_idx, k);
-    endif
+    pivot_idx += n-(n-k+1);
+    A = swap_rows(A, pivot_idx, k);
+    L = swap_rows(L, pivot_idx, k);
+    P = swap_rows(P, pivot_idx, k);
     
     if (A(k,k) == 0)
       continue;
     endif
     
-    for i=(k + 1):n
-      L(i,k) = double(A(i,k))/double(A(k,k));
-    endfor
+    L(k:n,k) = A(k:n,k)/A(k,k);
+
+##    Converted loop to matrix operation:    
+##    for j = (k + 1):n 
+##      for i = (k + 1):n
+##        A(i,j) -= L(i,k) * A(k,j);
+##      endfor
+##    endfor
+    A(k+1:n,1:n) -= L(k+1:n,k) * A(k,1:n);
     
-    for j = (k + 1):n 
-      for i = (k + 1):n
-        A(i,j) -= L(i,k) * A(k,j);
-      endfor
-    endfor
   endfor
 
   for i=2:n

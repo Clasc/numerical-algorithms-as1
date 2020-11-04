@@ -30,12 +30,6 @@ function [A, P] = plu(A, n)
     
     L(k:n,k) = A(k:n,k)/A(k,k);
     
-    ##    Converted loop to matrix operation:    
-    ##    for j = (k + 1):n 
-    ##      for i = (k + 1):n
-    ##        A(i,j) -= L(i,k) * A(k,j);
-    ##      endfor
-    ##    endfor
     A(k+1:n,1:n) -= L(k+1:n,k) * A(k,1:n);
     
   endfor

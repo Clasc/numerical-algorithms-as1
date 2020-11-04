@@ -1,1 +1,1 @@
-B = [5,8,2; -2,5,5; 9,5,7]b = [5;-6;2]n = length(b)[x] = linSolve(B,b,n)[corrX] = linsolve(B,b)
+A = [5,8,2; -2,5,5; 9,5,7]b = [5;-6;2]n = length(b)[x] = linSolve(A,b,n)A * x

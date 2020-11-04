@@ -1,1 +1,1 @@
-A = [5,8,2; -2,5,5; 9,5,7]b = [5;-6;2]n = length(b)[x] = linSolve(A,b,n)A * x
+n = 3;A = rand(n);b = rand(n,1)x = linSolve(A,b,n);corrx = A\b;

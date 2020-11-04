@@ -8,6 +8,7 @@ function [A, P] = plu(A, n)
   endif
   
   
+  
   P = eye(n);
   L = eye(n);
   

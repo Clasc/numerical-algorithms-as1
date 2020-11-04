@@ -1,0 +1,2 @@
+function r = relative_residual(M,x,b)    validateattributes(M, {"numeric"}, {'square'});    validateattributes(x, {"numeric"}, {'column'});    validateattributes(b, {"numeric"}, {'column'});        if(columns(M) != length(x) || length(x) != length(b) || columns(M) != length(b)      error("Dimensions of input Parameters are not the same");    endif        r = norm(M * x - b) / (norm(M) * norm(x));
+endfunction

@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 
 \title{NA HW2}
 \author{Christian Lascsak 013763742}
@@ -13,12 +14,32 @@
 \subsection{First}
 We have discussed elementary elimination matrices Mk in class. Prove the
 following two properties of elementary elimination matrices, which are very important for
-making LU factorization work efficiently in practice:\newline
+making LU factorization work efficiently in practice:
+
+\par\noindent
 Property (a): Mk is nonsingular.
 Hint: Represent \(M_k^{-1}\)
 explicitly and then show that \(M_k M_k^{-1} = M_k^{-1} M_k = I\)
-\newline
-practice:\newline
+\par
+\noindent
+practice:
 Property (b): The product of two elementary elimination matrices \(M_k\) and \(M_j\) with \(k \leq j\) is essentially their “union”; and therefore they can be multiplied without any computational
 cost.
+\par\noindent
+Assuming we have a 2x2 elimination Matrix M =
+$\left( \begin{array}{rrrr}
+2 & 4\\
+1 & 2\\
+\end{array}\right)$.
+
+\(det(M) =\) $\begin{vmatrix}
+2 & 4\\
+1 & 2\\
+\end{vmatrix}$ \(= 2*2 - 1*4 = 0\)
+
+\par\noindent
+Trying to calculate \(M^{-1}\) via Octave does not work. It displays the following error message:
+warning: inverse: matrix singular to machine precision, \(rcond = 0\)
+\newline
+
 \end{document}

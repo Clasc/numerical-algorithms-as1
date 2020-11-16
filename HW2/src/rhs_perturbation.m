@@ -1,0 +1,1 @@
+## Generate n x n Matrix E with norm 10^-8 and n x 1 vector  delta_b with norm 10^-8function [E, delta_b] = rhs_perturbation(n)  if (length(n) != 1)    error("n has to be a scalar");  endif  expected_norm = 10^(-8);    E = rand(n);  E /= norm(E,1);  E *= expected_norm;  delta_b = rand(n,1);  delta_b /= norm(delta_b, 1);  delta_b *= expected_norm;endfunction

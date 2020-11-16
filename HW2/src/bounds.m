@@ -1,0 +1,2 @@
+## scalar lb containing the left hand side, ## scalar rb containing the right hand side of the boundfunction [lb, rb] = bounds(A, E, b, delta_b)  validateattributes(A, {"numeric"}, {'square'});  validateattributes(E, {"numeric"}, {'square'});  validateattributes(delta_b, {"numeric"}, {'column'});  validateattributes(b, {"numeric"}, {'column'});    [x, delta_x] = lhs_perturbation(A, E, b, delta_b);    lb = norm(delta_x,1) / norm(x,1);    rb = cond(A) * (norm(delta_b,1) / norm(b,1) + norm(E,1) / norm(A,1));  
+endfunction

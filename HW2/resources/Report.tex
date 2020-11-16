@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{graphicx}
+
 
 \title{NA HW2}
 \author{Christian Lascsak 013763742}
@@ -26,20 +28,67 @@ practice:
 Property (b): The product of two elementary elimination matrices \(M_k\) and \(M_j\) with \(k \leq j\) is essentially their “union”; and therefore they can be multiplied without any computational
 cost.
 \par\noindent
-Assuming we have a 2x2 elimination Matrix M =
-$\left( \begin{array}{rrrr}
-2 & 4\\
-1 & 2\\
-\end{array}\right)$.
+Assuming we have a 2x2 elimination Matrix 
+\begin{equation}
+    M_k^{-1} =
+    \left( 
+    \begin{array}{rrrr}
+    1 & 0 & 0\\
+    -2 & 1 & 0\\
+    1 & 0 & 1\\
+    \end{array}\right)
+\end{equation}
 
-\(det(M) =\) $\begin{vmatrix}
-2 & 4\\
-1 & 2\\
-\end{vmatrix}$ \(= 2*2 - 1*4 = 0\)
+\begin{equation}
+    det(M) = \begin{vmatrix}
+    1 & 0 & 0\\
+    -2 & 1 & 0\\
+    1 & 0 & 1\\
+    \end{vmatrix} = 1*1*1 + 0*0*1 + 0*(-2)*0 - 1*1*0 - 0*0*1 = 1
+\end{equation}
 
 \par\noindent
-Trying to calculate \(M^{-1}\) via Octave does not work. It displays the following error message:
-warning: inverse: matrix singular to machine precision, \(rcond = 0\)
-\newline
+The determinant is 1, which means, that this matrix is non-singular. So for \(M\) there exists an \(M^{-1}\)
+
+\begin{equation}
+    M * M^{-1} = I
+\end{equation}
+Therefore 
+\begin{equation}
+    M^{-1} =  \left( \begin{array}{rrrr}
+    1 & 0 & 0\\
+    2 & 1 & 0\\
+    -1 & 0 & 1\\
+    \end{array}\right)
+\end{equation}
+     
+\par\noindent
+
+\subsection{Part1 - A Condition Estimator}
+The condition number of a matrix describes the ratio of the maximum to minimum stretching of a vector by a matrix. That's the reason why a matrix with a \(|M| = 0\)  has a condition number of infinity.
+Only a matrix with a range of infinity for stretching and minimizing a vector, can minimize it to zero. Therefore making the matrix singular.
+\par\noindent
+The Calculation of the condition number is:
+\(K(A) = ||A|| * ||A^{-1}||\).
+\par\noindent
+However the calculation of \(||A^{-1}||\) is very expensive. This is because of the complexity for calculating the inverse of a Matrix ($O(n^3)$ for Gauss Jordan Elimination).
+There are other algorithms out there, however they are all more complex than $O(n^2)$.
+This makes the idea to estimate  \(||A^{-1}||\) very attractive. For doing this we need a few steps.
+Firstly, we would solve a linear system \(A z = y\).
+The resulting z and y can then be used to estimate the normed inverse of A: \(\\||A^{-1}|| =||z|| / ||y|| \).
+But the problem here is, what is y? 
+
+\subsection{Part 2 -  Average Case Perturbation Errors}
+For Part 2 we are generating random perturbation Errors E and delta b - with a norm of \(10^{-8}\).
+This can be achieved by generating a random Matrix, dividing its components by its first norm and then multiplying it by the desired norm (which is \(10^{-8}\)).
+\((E / ||E||_1) * 10^{-8}\)
+\par\noindent
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{part2_img.png}
+    \caption{The comparison of the left hand-side error bound and the right hand-side error bound on a logarithmic scale}
+    \label{fig:part2_result}
+\end{figure}
 
 \end{document}

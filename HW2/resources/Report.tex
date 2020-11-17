@@ -79,16 +79,36 @@ The resulting z and y can then be used to estimate the normed inverse of A: \(\\
 But the problem here is, what is y? 
 
 \subsection{Part 2 -  Average Case Perturbation Errors}
-For Part 2 we are generating random perturbation Errors E and delta b - with a norm of \(10^{-8}\).
-This can be achieved by generating a random Matrix, dividing its components by its first norm and then multiplying it by the desired norm (which is \(10^{-8}\)).
-\((E / ||E||_1) * 10^{-8}\)
+For Part 2 we are generating random perturbation Errors E and \(\Delta b\) - with a norm of \(10^{-8}\).
+This can be achieved by generating a random Matrix, dividing its components by its first norm and then multiplying it by the desired norm \(10^{-8}\).
+\begin{equation}
+     E := (E / ||E||_1) * 10^{-8}
+\end{equation}
+We do the same for \(\Delta b\) (the error of b) in \(A x = b\).
+\begin{equation}
+     \Delta b := (\Delta b / ||\Delta b||_1) * 10^{-8}
+\end{equation}
 \par\noindent
-
+Then we calculate the solution x of \(A x = b\). \^x is also calculated, by solving the linear system including the perturbation:
+\begin{equation}
+    (A + E)  \^x =  (b + \Delta b);
+\end{equation}
+With \^x we can then calculate: \(\Delta x = \^x-x\)
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{part2_img.png}
     \caption{The comparison of the left hand-side error bound and the right hand-side error bound on a logarithmic scale}
     \label{fig:part2_result}
 \end{figure}
+We now have all the components for calculating the lower (left side) and the upper bound (right side):
+
+\begin{equation}
+    \frac{||\Delta x||}{||x||} \leq cond(A) (\frac{||\Delta b||}{||b||} + \frac{||E||}{||A||})
+\end{equation}
+
+\par\noindent
+Calculating the bounds for many A and averaging the results gives us the following graph(\ref{fig:part2_result}).
+We can see that the higher n is (which means the more dimensions the linear system has), the more space is between the lower and the upper bound.
+This means, that the perturbation increases with the size of A.
 
 \end{document}

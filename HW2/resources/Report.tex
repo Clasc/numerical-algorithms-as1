@@ -61,7 +61,8 @@ Therefore
     -1 & 0 & 1\\
     \end{array}\right)
 \end{equation}
-     
+
+However, I was not able to complete this task. Skip it please.
 \par\noindent
 
 \subsection{Part1 - A Condition Estimator}
@@ -91,6 +92,14 @@ With that we can then solve
     L^T y = w
 \end{equation}
 generating a \(y\) for our estimation.
+
+Comparing the magnitudes of my est\_cond() and condest()
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{part1_mag.png}
+    \caption{The magnitude, compared between the condest() and est\_cond() function. The general magnitude of my implementation is lower, however it spikes more often }
+    \label{fig:part1}
+\end{figure}
 
 \subsection{Part 2 -  Average Case Perturbation Errors}
 For Part 2 we are generating random perturbation Errors E and \(\Delta b\) - with a norm of \(10^{-8}\).

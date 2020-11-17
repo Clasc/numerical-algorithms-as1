@@ -1,0 +1,2 @@
+function part1()    for n = 1:500    A = rand(n);    c = cond(A);    c_e = est_cond(A);    ce = condest(A);    m_c_e(n) = magnitude(c_e, c);    m_ce(n) = magnitude(ce,c);  endfor  n_s = 1:500;  figure  semilogy(n_s, m_ce, n_s, m_c_e);  title("Magnitues compared to optimal cond");  xlabel("size n");   ylabel("magnitude");  grid("on");  legend('octave condest',"est_cond",'Location','northwest')
+endfunction

@@ -75,8 +75,22 @@ However the calculation of \(||A^{-1}||\) is very expensive. This is because of 
 There are other algorithms out there, however they are all more complex than $O(n^2)$.
 This makes the idea to estimate  \(||A^{-1}||\) very attractive. For doing this we need a few steps.
 Firstly, we would solve a linear system \(A z = y\).
-The resulting z and y can then be used to estimate the normed inverse of A: \(\\||A^{-1}|| =||z|| / ||y|| \).
+The resulting z and y can then be used to estimate the normed inverse of A: \(\\||A^{-1}|| = \frac{||z||}{||y||}\).
 But the problem here is, what is y? 
+There are few methods to calculate y. One is to simply generate a random y - so that \(\frac{||z||}{||y||}\) is as big as possible.
+However, the other method is to make an LU decomposition of A 
+\begin{equation}
+    A = L U
+\end{equation}
+and then solve 
+\begin{equation}
+    U^T w = e
+\end{equation}
+With that we can then solve 
+\begin{equation}
+    L^T y = w
+\end{equation}
+generating a \(y\) for our estimation.
 
 \subsection{Part 2 -  Average Case Perturbation Errors}
 For Part 2 we are generating random perturbation Errors E and \(\Delta b\) - with a norm of \(10^{-8}\).

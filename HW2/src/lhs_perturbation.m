@@ -1,0 +1,2 @@
+##   x : solution to the linear system Ax = b,##   n×1 vector delta_x which is the difference delta_x − x to perturbed linear system function [x, delta_x] = lhs_perturbation(A, E, b, delta_b)  validateattributes(A, {"numeric"}, {'square'});  validateattributes(E, {"numeric"}, {'square'});  validateattributes(delta_b, {"numeric"}, {'column'});  validateattributes(b, {"numeric"}, {'column'});    x = A \ b;  d_x = (A + E) \ (b + delta_b);  delta_x = d_x - x;
+endfunction

@@ -11,3 +11,5 @@ iter
 x
 correct_x = A\b
 expcted_cg_x =  cgs(A,b)
+
+%read_exec("matrix1.mtx");

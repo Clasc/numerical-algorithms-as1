@@ -21,7 +21,6 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
 
     % Folien Sparse Linear Systems S.31
     r(:,1) = b - (A * x0);
-    r(:,1)' * r(:,1);
     s_k = r(:,1);
     x = x0;
     
@@ -32,6 +31,7 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
 
         % Finde von xk in Richtung sk | dk  den Ort xk+1
         a_k = r_k_dot / (s_k' * temp_prod);
+
         % aktualisiere Lösung von x E(k) und Residuum
         x = x + a_k * s_k;
         r(:, k+1) = r(:,k) - a_k * temp_prod;
@@ -41,9 +41,9 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
         s_k = r(:,k+1) + beta_k * s_k;
 
         % bis residuum ist kleiner als Toleranz
-        res = norm(r(:,k+1),1);
-        %res = residual(A, x, b);
-        if (res > tol || k >= maxit)
+        %res = norm(r(:,k+1),1);
+        res = residual(A, x, b);
+        if (res < tol)
             break;
         endif
     endfor 

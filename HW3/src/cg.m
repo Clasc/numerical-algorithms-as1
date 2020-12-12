@@ -41,8 +41,8 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
         s_k = r(:,k+1) + beta_k * s_k;
 
         % bis residuum ist kleiner als Toleranz
-        %res = norm(r(:,k+1),1);
-        res = residual(A, x, b);
+        res = norm(r(:,k+1),1);
+        %res = residual(A, x, b);
         if (res < tol)
             break;
         endif

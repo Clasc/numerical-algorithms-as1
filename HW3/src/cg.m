@@ -28,20 +28,22 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
     for k = 1:maxit
         iter = k;
         temp_prod = A * s_k;
-        
+        r_k_dot = dot(r(:,k), r(:,k));
+
         % Finde von xk in Richtung sk | dk  den Ort xk+1
-        a_k = (r(:,k)' * r(:,k)) / (s_k' * temp_prod);
+        a_k = r_k_dot / (s_k' * temp_prod);
         % aktualisiere Lösung von x E(k) und Residuum
         x = x + a_k * s_k;
-        r(:, k+1) = r(:,k) + a_k * temp_prod;
+        r(:, k+1) = r(:,k) - a_k * temp_prod;
 
         % korrigiere suchrichtung s 
-        beta_k = (r(:,k+1)' * r(:,k+1)) / (r(:,k)' * r(:,k));
+        beta_k = dot(r(:,k+1), r(:,k+1)) / r_k_dot;
         s_k = r(:,k+1) + beta_k * s_k;
 
         % bis residuum ist kleiner als Toleranz
-        residual = norm(r(:,k+1),1);
-        if (residual > tol || k >= maxit)
+        res = norm(r(:,k+1),1);
+        %res = residual(A, x, b);
+        if (res > tol || k >= maxit)
             break;
         endif
     endfor 

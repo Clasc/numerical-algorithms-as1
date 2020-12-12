@@ -41,7 +41,7 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
 
         % bis residuum ist kleiner als Toleranz
         residual = norm(r(:,k+1),1);
-        if (residual < tol || k >= maxit)
+        if (residual > tol || k >= maxit)
             break;
         endif
     endfor 

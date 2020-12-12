@@ -8,8 +8,8 @@ A = [0.18324   0.38799   0.33530
 
 b = [2;2;1];
 tol = 0.5;
-maxit = uint32(3);
-x0 = [4;2;2];
+maxit = uint32(25);
+x0 = rand(n,1);
 
 [x, iter, res_vec] = cg(A, b, tol, maxit, x0);
 

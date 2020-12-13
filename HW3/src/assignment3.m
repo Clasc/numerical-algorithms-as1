@@ -1,6 +1,6 @@
 n = 3;
 
-A = pos_def_matrix(n);
+A = sparse(pos_def_matrix(n));
 
 %A = [0.18324   0.38799   0.33530
 %   0.38799   1.07096   0.74656

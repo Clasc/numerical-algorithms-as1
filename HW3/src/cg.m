@@ -19,7 +19,7 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
         error("vectors need to have the same length as the n x n Matrix A");
     endif
 
-    norm_A = norm(A);
+    norm_A = normest(A);
     % Folien Sparse Linear Systems S.31
     r_k = b - (A * x0);
     s_k = r_k;

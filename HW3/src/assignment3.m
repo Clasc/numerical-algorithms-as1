@@ -7,7 +7,7 @@ A = pos_def_matrix(n);
 %   0.33530   0.74656   0.67923];
 
 b = [2;2;1];
-tol = 0.5;
+tol = 1e-6;
 maxit = uint32(25);
 x0 = rand(n,1);
 

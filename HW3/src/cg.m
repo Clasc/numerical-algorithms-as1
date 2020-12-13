@@ -19,6 +19,7 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
         error("vectors need to have the same length as the n x n Matrix A");
     endif
 
+    norm_A = norm(A);
     % Folien Sparse Linear Systems S.31
     r(:,1) = b - (A * x0);
     s_k = r(:,1);
@@ -41,12 +42,10 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
         s_k = r(:,k+1) + beta_k * s_k;
 
         % bis residuum ist kleiner als Toleranz
-        res = norm(r(:,k+1),1);
-        %res = residual(A, x, b);
-        if (res < tol)
+        abs_res = norm(r(:,k+1),1);
+        res_vec(end + 1) = residual(A, x, b, norm_A);
+        if (abs_res < tol)
             break;
         endif
     endfor 
-
-    res_vec = r;
 endfunction

@@ -1,4 +1,4 @@
-function [r] = residual(A, x_hat, b)
+function [r] = residual(A, x_hat, b, norm_A)
     validateattributes(A, {"numeric"}, {'square'});
     validateattributes(b, {"numeric"}, {'column'});
     validateattributes(x_hat, {"numeric"}, {'column'});
@@ -9,6 +9,10 @@ function [r] = residual(A, x_hat, b)
         error("The vectors x and b have to be the same size as A");
     endif
 
-    r = norm(A * x_hat - b) / (norm(A) * norm (x_hat));
+    if ~exist('norm_A','var')
+      norm_A = norm(A);
+    end
+
+    r = norm(A * x_hat - b) / (norm_A * norm (x_hat));
 
 endfunction

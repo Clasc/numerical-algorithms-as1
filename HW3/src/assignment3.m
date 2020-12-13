@@ -13,7 +13,7 @@ x0 = rand(n,1);
 
 [x, iter, res_vec] = cg(A, b, tol, maxit, x0);
 
-last_residual = res_vec(:, iter)
+res_vec
 iter
 x
 correct_x = A\b

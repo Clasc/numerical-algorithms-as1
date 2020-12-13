@@ -7,4 +7,12 @@ function read_exec(file)
     maxit = uint32(23);
     
     [x, iter, res_vec] = cg(A, b, tol, maxit, x0);
+        
+    figure
+    semilogy(1:iter, res_vec);
+    title("Conjugate Gradient method");
+    xlabel("Iteration");
+    ylabel("Relative residual");
+    grid("on");
+
 endfunction

@@ -1,4 +1,4 @@
-function  [iter, res_vec] = read_exec(file)
+function  [iter, res_vec] = read_exec_cg(file)
     [A, rows, cols, entries] = mmread(file);
     A = sparse(A);
     b = rand(rows,1);

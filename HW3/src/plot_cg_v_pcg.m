@@ -1,0 +1,2 @@
+function plot_cg_v_pcg(file)  [A, rows, cols, entries] = mmread(file);  A = sparse(A);  b = rand(rows,1);  x0 = rand(rows,1);  tol = 1e-6;  maxit = uint32(rows);    [~, iter_cg, res_vec_cg] = cg(A, b, tol, maxit, x0);    J = create_jacobi(rows);    [~, iter, res_vec] = p_cg(A, b, tol, maxit, x0, J);      figure  semilogy(1:iter_cg, res_vec_cg, 1:iter, res_vec);  title("Compparing cg vs. p_cg");  xlabel("Iteration");  ylabel("Relative residual");  grid("on");  legend("cg", "p_cg_jacobi");
+endfunction

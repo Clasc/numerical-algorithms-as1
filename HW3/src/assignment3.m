@@ -1,1 +1,1 @@
-plot_cg_all();
+plot_cg_v_pcg("nos6.mtx", 'jacobi');plot_cg_tol_relres("nos6.mtx", 'jacobi');

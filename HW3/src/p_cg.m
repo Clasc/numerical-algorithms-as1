@@ -6,31 +6,21 @@ function [x, iter, res_vec] = p_cg(A, b, tol, maxit, x0, M1, M2)
 
     validateattributes(tol, {"numeric"}, {'scalar'});
     validateattributes(maxit, {"uint32"}, {'scalar'});
-    
-    m1_exists = exist("M1", "var");
-    m2_exists = exist("M2", "var"); 
-    
-    
-    if (m1_exists)
-      validateattributes(M1, {"numeric"}, {'square'});
-      [m_n1,~] = size(M1);  
-    endif
-    
-     if (m2_exists)
-      validateattributes(M2, {"numeric"}, {'square'});
-      [m_n2,~] = size(M2); 
-    endif
-    
-     if ((!m1_exists && !m2_exists || (m_n1 == 0 && m_n2 == 0)))
+    validateattributes(M1, {"numeric"}, {'square'});  
+    validateattributes(M2, {"numeric"}, {'square'});
+     
+      
+     [m_n1,~] = size(M1);
+     [m_n2,~] = size(M2);     
+     
+     if(m_n1 == 0 && m_n2 == 0)
       [x, iter, res_vec] = cg(A, b, tol, maxit, x0);
       return;
     endif
     
-    if(!m2_exists || m_n == 0)
-      disp("Using M1");
+    if (m_n2 == 0)
       inv_M = inv(M1);
     else
-      disp("Using M1*M2 as inverse");
       inv_M = M1 * M2;
     endif
     

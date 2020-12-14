@@ -1,4 +1,4 @@
-function  [iter, res_vec] = read_exec_cg(file)
+function  [iter, res_vec] = read_exec_cg(file, precon_type)
     [A, rows, cols, entries] = mmread(file);
     A = sparse(A);
     b = rand(rows,1);
@@ -6,7 +6,7 @@ function  [iter, res_vec] = read_exec_cg(file)
     tol = 1e-6;
     maxit = uint32(rows);
     
-
-    [x, iter, res_vec] = cg(A, b, tol, maxit, x0);
+    [M1,M2] = get_precondition(rows, precon_type);
+    [x, iter, res_vec] = p_cg(A, b, tol, maxit, x0, M1, M2);
     
 endfunction

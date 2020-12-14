@@ -1,1 +1,0 @@
-function plot_pcg()    n = 5;    A = pos_def_matrix(n);    jacobi = create_jacobi(A);        b = rand(n,1);    x0 = rand(n,1);    tol = 1e-6;    maxit = uint32(n);        [x, iter, res_vec] = p_cg(A, b, tol, maxit, x0, jacobi);    x        expected_x = pcg(A, b, tol, maxit, jacobi)        correct_x = A\b    endfunction

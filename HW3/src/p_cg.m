@@ -28,13 +28,14 @@ function [x, iter, res_vec] = p_cg(A, b, tol, maxit, x0, M1, M2)
     res_vec(1) = residual(A, x0, b, norm_A);
     % Folien Sparse Linear Systems S.36
     r_k = b - (A * x0);
-    s_k = M * r_k;
+    inv_M_rk = M \ r_k;
+    s_k = inv_M_rk;
     x = x0;
     
     for k = 1:maxit
         iter = k;
         temp_prod = A * s_k;
-        r_k_dot_last = dot(r_k' * M, r_k);
+        r_k_dot_last = dot(r_k', inv_M_rk);
 
         % Finde von xk in Richtung sk | dk  den Ort xk+1
         a_k = r_k_dot_last / (s_k' * temp_prod);
@@ -48,9 +49,10 @@ function [x, iter, res_vec] = p_cg(A, b, tol, maxit, x0, M1, M2)
         endif
         
         r_k = r_k - a_k * temp_prod;
-
+        inv_M_rk = M \ r_k;
+        
         % korrigiere suchrichtung s 
-        beta_k = dot(r_k' * M, r_k) / r_k_dot_last;
-        s_k = M * r_k + beta_k * s_k;
+        beta_k = dot(r_k',inv_M_rk) / r_k_dot_last;
+        s_k = inv_M_rk + beta_k * s_k;
     endfor 
 endfunction

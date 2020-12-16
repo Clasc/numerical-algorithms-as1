@@ -10,9 +10,9 @@ function [r] = residual(A, x_hat, b, norm_A)
     endif
 
     if ~exist('norm_A','var')
-      norm_A = norm(A);
+      norm_A = normest(A);
     end
 
-    r = norm(A * x_hat - b) / (norm_A * norm (x_hat));
+    r = normest(A * x_hat - b) / (norm_A * normest(x_hat));
 
 endfunction

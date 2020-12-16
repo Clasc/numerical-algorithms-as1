@@ -20,6 +20,8 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
     endif
 
     norm_A = normest(A);
+    res_vec(1) = residual(A, x0, b, norm_A);
+    
     % Folien Sparse Linear Systems S.31
     r_k = b - (A * x0);
     s_k = r_k;
@@ -35,17 +37,16 @@ function [x, iter, res_vec] = cg(A, b, tol, maxit, x0)
 
         % aktualisiere Lösung von x E(k) und Residuum
         x = x + a_k * s_k;
+        
+        res_vec(k + 1) = residual(A, x, b, norm_A);
+        if (res_vec(k + 1) < tol)
+            break;
+        endif
+        
         r_k = r_k - a_k * temp_prod;
 
         % korrigiere suchrichtung s 
         beta_k = dot(r_k, r_k) / r_k_dot_last;
         s_k = r_k + beta_k * s_k;
-
-        % bis residuum ist kleiner als Toleranz
-        abs_res = norm(r_k,1);
-        res_vec(end + 1) = residual(A, x, b, norm_A);
-        if (abs_res < tol)
-            break;
-        endif
     endfor 
 endfunction

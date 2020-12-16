@@ -19,38 +19,38 @@ function [x, iter, res_vec] = p_cg(A, b, tol, maxit, x0, M1, M2)
     endif
     
     if (m_n2 == 0)
-      inv_M = inv(M1);
+      M = M1;
     else
-      inv_M = M1 * M2;
+      M = M1 * M2;
     endif
     
     norm_A = normest(A);
+    res_vec(1) = residual(A, x0, b, norm_A);
     % Folien Sparse Linear Systems S.36
     r_k = b - (A * x0);
-    s_k = inv_M * r_k;
+    s_k = M * r_k;
     x = x0;
     
     for k = 1:maxit
         iter = k;
         temp_prod = A * s_k;
-        r_k_dot_last = dot(r_k' * inv_M, r_k);
+        r_k_dot_last = dot(r_k' * M, r_k);
 
         % Finde von xk in Richtung sk | dk  den Ort xk+1
         a_k = r_k_dot_last / (s_k' * temp_prod);
 
         % aktualisiere Lösung von x E(k) und Residuum
         x = x + a_k * s_k;
+        
+        res_vec(k + 1) = residual(A, x, b, norm_A);
+        if (res_vec(k + 1) < tol)
+            break;
+        endif
+        
         r_k = r_k - a_k * temp_prod;
 
         % korrigiere suchrichtung s 
-        beta_k = dot(r_k' * inv_M, r_k) / r_k_dot_last;
-        s_k = inv_M * r_k + beta_k * s_k;
-
-        % bis residuum ist kleiner als Toleranz
-        abs_res = norm(r_k,1);
-        res_vec(end + 1) = residual(A, x, b, norm_A);
-        if (abs_res < tol)
-            break;
-        endif
+        beta_k = dot(r_k' * M, r_k) / r_k_dot_last;
+        s_k = M * r_k + beta_k * s_k;
     endfor 
 endfunction

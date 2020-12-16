@@ -26,5 +26,5 @@ function plot_all(file)
    xlabel("Iteration");
    ylabel("Relative residual");
    grid("on");
-   legend("without precondition", "jacobi", "ichol", "icol with threshold");
+   legend("without precondition", "jacobi", "ichol", "ichol with threshold");
 endfunction

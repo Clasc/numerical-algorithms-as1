@@ -22,5 +22,5 @@ function p_s3()
    xlabel("Iteration");
    ylabel("Relative residual");
    grid("on");
-   legend("without precondition", "jacobi", "icol with threshold");
+   legend("without precondition", "jacobi", "ichol with threshold");
 endfunction
